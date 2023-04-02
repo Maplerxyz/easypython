@@ -37,7 +37,7 @@ If you'd like to contribute to EasyPython, feel free to fork the repository and 
 
 ## License
 
-EasyPython is licensed under the MIT license. See LICENSE.md for more information.
+EasyPython is licensed under the MIT license. See [LICENSE.md](https://github.com/Maplerxyz/easypython/blob/main/LICENSE.md) for more information.
 
 
 
