@@ -4,16 +4,27 @@ variables = {}
 
 def evaluate(expression):
     try:
-        result = eval(expression, variables)
+        # Check if expression is a string
+        if expression.startswith('"') and expression.endswith('"'):
+            return expression[1:-1]
+        
+        # Check if expression is an integer or float
+        if expression.replace('.', '', 1).isdigit():
+            return eval(expression)
+
+        # Check if expression is a variable name
+        if expression in variables:
+            return variables[expression]
+
+        # Otherwise, try evaluating as a Python expression with variables
+        return eval(expression, variables)
+
     except NameError as e:
-        print("Invalid variable: " + str(e).split("'")[1])
-        return
+        raise NameError("Invalid variable: " + str(e))
+
     except Exception as e:
-        print("Error: " + str(e))
-        return
-    
-    if result is not None:
-        print(result)
+        raise Exception("Error evaluating expression: " + str(e))
+
 
 def execute(file):
     with open(file) as f:
@@ -39,12 +50,19 @@ def execute(file):
             # Check if prnt statement contains a variable
             if "prnt" in line:
                 variable_name = line.split(" ")[1]
-                if variable_name in variables:
-                    evaluate(variables[variable_name])
-                else:
-                    print("Invalid variable: " + variable_name)
+                try:
+                    print(evaluate(variable_name))
+                except NameError:
+                    if variable_name.startswith('"') and variable_name.endswith('"'):
+                        print(variable_name[1:-1])
+                    else:
+                        print("Invalid variable: " + variable_name)
             else:
-                evaluate(line)
+                try:
+                    evaluate(line)
+                except NameError:
+                    print("Invalid variable: " + line.split(" ")[1])
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
