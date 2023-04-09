@@ -21,12 +21,6 @@ var name = "John"
 
 // Print the variable
 prnt name
-
-// Set numbers as variables and do an equation
-var number1 = 20
-var number2 = 1
-var math = number1 + number2
-prnt math
 ```
 
 In EasyPython, you can set variables using the `var` keyword, and print values using the `prnt` keyword. EasyPython also supports basic arithmetic operations like addition, subtraction, multiplication, and division.
